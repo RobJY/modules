@@ -4,6 +4,7 @@ import os
 import sys
 import errno
 import argparse
+import requests
 
 
 def parse_args(args=None):
@@ -93,11 +94,16 @@ def check_samplesheet(file_in, file_out):
                     print(file_list_list)
                     for input_file in file_list_list:
                         print('current input file: {}'.format(input_file))
-                        if not os.path.exists(input_file):
-                            print_error("Input file does not exist!", "Line", line)
-                        if not input_file.endswith(".tiff"):
+                        if 'http' in input_file:  # URL
+                            req_check = requests.head(input_file, allow_redirects=True)
+                            if req_check.status_code != 200:
+                                print_error("Input file does not exist at provided URL!", "Line", line)
+                        else:
+                            if not os.path.exists(input_file):
+                                print_error("Input file does not exist!", "Line", line)
+                        if not input_file.endswith(".ome.tif"):
                             print_error(
-                                "Input image file must have extension '.tiff' or '.ome.tiff'!",
+                                "Input image file must have extension '.ome.tif'!",
                                 "Line", line)
                 else:
                     print_error("Each run must include at least one input image!", "Line", line)

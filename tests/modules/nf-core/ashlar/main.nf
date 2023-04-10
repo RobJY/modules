@@ -6,41 +6,26 @@ include { ASHLAR } from '../../../../modules/nf-core/ashlar/main.nf'
 // we zero out the UUID of output tiff images with ZERO_UUID so we get a consistent md5sum
 include { ZERO_UUID } from './zero_uuid.nf'
 
-workflow test_ashlar_1_file {
 
-    input_list =  [ [ [ id:'test_all', args: '' ],
-               [file(params.test_data['imaging']['ome-tiff']['cycif_tonsil_cycle1'], checkIfExists: true)] ] ]
-    input_channel = Channel.fromList(input_list)
+include { INPUT_CHECK } from '../../../../modules/nf-core/ashlar/input_check.nf'
 
-    ASHLAR ( input_channel )
+TEST_SHEET = "/home/pollen/github/modules/tests/modules/nf-core/ashlar/test_sheet.csv"
 
-    ZERO_UUID ( ASHLAR.out[0], "8390123" )
+workflow test_ashlar_sheet {
 
-}
+    ch_input = file(TEST_SHEET)
 
-workflow test_ashlar_all_files {
+    INPUT_CHECK (
+        ch_input
+    )
+    .images
+    .map {
+        it -> [ [ id: it.sample, args: '' ],
+                it.file_list ]
+    }
+    .set { input_maps }
 
-    input_list =  [ [ [ id:'test_all', args: '' ],
-               [file(params.test_data['imaging']['ome-tiff']['cycif_tonsil_cycle1'], checkIfExists: true),
-                file(params.test_data['imaging']['ome-tiff']['cycif_tonsil_cycle2'], checkIfExists: true),
-                file(params.test_data['imaging']['ome-tiff']['cycif_tonsil_cycle3'], checkIfExists: true)] ] ]
-    input_channel = Channel.fromList(input_list)
-
-    ASHLAR ( input_channel )
-
-    ZERO_UUID ( ASHLAR.out[0], "25169643" )
-
-}
-
-workflow test_ashlar_all_files_tile_size {
-
-    input_list =  [ [ [ id:'test_all', args: '--tile-size 512' ],
-               [file(params.test_data['imaging']['ome-tiff']['cycif_tonsil_cycle1'], checkIfExists: true),
-                file(params.test_data['imaging']['ome-tiff']['cycif_tonsil_cycle2'], checkIfExists: true),
-                file(params.test_data['imaging']['ome-tiff']['cycif_tonsil_cycle3'], checkIfExists: true)] ] ]
-    input_channel = Channel.fromList(input_list)
-
-    ASHLAR ( input_channel )
+    ASHLAR ( input_maps )
 
     ZERO_UUID ( ASHLAR.out[0], "12586923" )
 
