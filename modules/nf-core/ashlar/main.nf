@@ -2,17 +2,17 @@ process ASHLAR {
     tag '$meta.id'
     label 'process_single'
 
-    conda (params.enable_conda ? "bioconda::ashlar=1.17.0" : null)
-    // TODO nf-core: need to have this added
+    conda "bioconda::ashlar=1.17.0"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/ashlar':
-        'quay.io/biocontainers/ashlar' }"
+        'https://depot.galaxyproject.org/singularity/ashlar:1.17.0--pyh5e36f6f_0' :
+        'quay.io/biocontainers/ashlar:1.17.0--pyh5e36f6f_0' }"
+
 
     input:
-    tuple val(meta), val(file_in)
+    tuple val(meta), path(file_in)
 
     output:
-    tuple val(meta), path("*.ome.tif")  ,   emit: ashlar_tif
+    tuple val(meta), path("*.tif")      ,   emit: ashlar_tif
     path "versions.yml"                 ,   emit: versions
 
     when:
