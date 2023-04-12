@@ -27,6 +27,6 @@ workflow test_ashlar_sheet {
 
     ASHLAR ( input_maps )
 
-    ZERO_UUID ( ASHLAR.out[0], "12586923" )
+    ZERO_UUID ( ASHLAR.out[0], "8390123" )
 
 }
