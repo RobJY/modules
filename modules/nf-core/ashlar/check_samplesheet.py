@@ -85,28 +85,28 @@ def check_samplesheet(file_in, file_out):
                     print_error("Sample entry has not been specified!", "Line", line)
 
                 ## Check input files
-                if file_list:
-                    print('file_list: {}'.format(file_list))
-                    if file_list.find(" ") != -1:
-                        file_list_list = file_list.split(' ')
-                    else:
-                        file_list_list = [file_list]
-                    print(file_list_list)
-                    for input_file in file_list_list:
-                        print('current input file: {}'.format(input_file))
-                        if 'http' in input_file:  # URL
-                            req_check = requests.head(input_file, allow_redirects=True)
-                            if req_check.status_code != 200:
-                                print_error("Input file does not exist at provided URL!", "Line", line)
-                        else:
-                            if not os.path.exists(input_file):
-                                print_error("Input file does not exist!", "Line", line)
-                        if not input_file.endswith(".ome.tif"):
-                            print_error(
-                                "Input image file must have extension '.ome.tif'!",
-                                "Line", line)
-                else:
-                    print_error("Each run must include at least one input image!", "Line", line)
+                #if file_list:
+                #    print('file_list: {}'.format(file_list))
+                #    if file_list.find(" ") != -1:
+                #        file_list_list = file_list.split(' ')
+                #    else:
+                #        file_list_list = [file_list]
+                #    print(file_list_list)
+                #    for input_file in file_list_list:
+                #        print('current input file: {}'.format(input_file))
+                #        if 'http' in input_file:  # URL
+                #            req_check = requests.head(input_file, allow_redirects=True)
+                #            if req_check.status_code != 200:
+                #                print_error("Input file does not exist at provided URL!", "Line", line)
+                #        else:
+                #            if not os.path.exists(input_file):
+                #                print_error("Input file does not exist!", "Line", line)
+                #        if not input_file.endswith(".ome.tif"):
+                #            print_error(
+                #                "Input image file must have extension '.ome.tif'!",
+                #                "Line", line)
+                #else:
+                #    print_error("Each run must include at least one input image!", "Line", line)
 
                 ## Check optional arguments
                 # TO DO: ashlar will error on bad arguments, so do we need to do any checking here?
