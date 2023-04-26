@@ -1,7 +1,5 @@
 #!/usr/bin/env nextflow
 
-import java.io.File
-
 nextflow.enable.dsl = 2
 
 params.enable_conda = true
@@ -9,7 +7,6 @@ params.enable_conda = true
 include { ASHLAR } from '../../../../modules/nf-core/ashlar/main.nf'
 // we zero out the UUID of output tiff images with ZERO_UUID so we get a consistent md5sum
 include { ZERO_UUID } from './zero_uuid.nf'
-include { DEBUG_TEST } from './debug_test.nf'
 include { INPUT_CHECK } from '../../../../modules/nf-core/ashlar/input_check.nf'
 
 TEST_SHEET = "/home/pollen/github/modules/tests/modules/nf-core/ashlar/test_sheet_url.csv"
@@ -30,10 +27,6 @@ workflow test_ashlar_sheet {
             [ meta, file_list_file ]
     }
     .set { input_maps }
-
-    // input_channel = Channel.from(input_maps)
-
-    // DEBUG_TEST ( input_maps )
 
     ASHLAR ( input_maps )
 
