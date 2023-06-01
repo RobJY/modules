@@ -1,9 +1,12 @@
 - name: ashlar test_ashlar_sheet
   command: nextflow run ./tests/modules/nf-core/ashlar -entry test_ashlar_sheet -c ./tests/config/nextflow.config -c ./tests/modules/nf-core/ashlar/nextflow.config
   tags:
-  - ashlar
+    - ashlar
   files:
-  - path: output/ashlar/ashlar_output.ome.tif
-    contains: '[ # TODO nf-core: file md5sum was variable, please replace this text with a string found in the file instead ]'
-  - path: output/samplesheet/samplesheet.valid.csv
-    md5sum: 7fc376b7194d599d9523374240740122
+    - path: output/ashlar/ashlar_output.ome.tif
+      contains:
+        - '# TODO nf-core: file md5sum was variable, please replace this text with a string found in the file instead '
+    - path: output/ashlar/versions.yml
+    - path: output/samplesheet/samplesheet.valid.csv
+      md5sum: 7fc376b7194d599d9523374240740122
+    - path: output/samplesheet/versions.yml

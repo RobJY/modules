@@ -3,15 +3,21 @@
 nextflow.enable.dsl = 2
 
 params.enable_conda = true
+params.validationLenientMode = true
+params.validationFailUnrecognisedParams = false
+params.schema_ignore_params = true
 
 include { ASHLAR } from '../../../../modules/nf-core/ashlar/main.nf'
 // we zero out the UUID of output tiff images with ZERO_UUID so we get a consistent md5sum
 include { ZERO_UUID } from './zero_uuid.nf'
 include { INPUT_CHECK } from '../../../../modules/nf-core/ashlar/input_check.nf'
+include { validateParameters; paramsHelp; paramsSummaryMap; paramsSummaryLog; validateAndConvertSamplesheet } from 'plugin/nf-validation'
 
 TEST_SHEET = "/home/pollen/github/modules/tests/modules/nf-core/ashlar/test_sheet_url.csv"
 
 workflow test_ashlar_sheet {
+
+    // validateParameters()
 
     ch_input = file(TEST_SHEET)
 
