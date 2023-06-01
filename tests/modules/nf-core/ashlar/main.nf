@@ -3,9 +3,9 @@
 nextflow.enable.dsl = 2
 
 params.enable_conda = true
-params.validationLenientMode = true
+params.validationLenientMode = false
 params.validationFailUnrecognisedParams = false
-params.schema_ignore_params = true
+params.schema_ignore_params = false
 
 include { ASHLAR } from '../../../../modules/nf-core/ashlar/main.nf'
 // we zero out the UUID of output tiff images with ZERO_UUID so we get a consistent md5sum
