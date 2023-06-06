@@ -17,7 +17,7 @@ TEST_SHEET = "/home/pollen/github/modules/tests/modules/nf-core/ashlar/test_shee
 
 workflow test_ashlar_sheet {
 
-    // validateParameters()
+    validateParameters()
 
     ch_input = file(TEST_SHEET)
 

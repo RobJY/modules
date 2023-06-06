@@ -27,13 +27,25 @@
         }
     ],
     "properties": {
+        "sample": {
+            "type": "string",
+            "errorMessage": "Sample name must be provided"
+        },
+        "file_list": {
+            "type": "string",
+            "errorMessage": "List of image file URLs (space separated)"
+        },
+        "args": {
+            "type": "string",
+            "errorMessage": "Optional sample arguments"
+        },
         "validationLenientMode": {
             "type": "string",
-            "default": null
+            "default": "None"
         },
         "validationFailUnrecognisedParams": {
             "type": "string",
-            "default": null
+            "default": "None"
         }
     }
 }
