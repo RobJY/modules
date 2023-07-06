@@ -14,7 +14,13 @@ TEST_SHEET = "/home/pollen/github/modules/tests/modules/nf-core/ashlar/test_shee
 
 workflow test_ashlar_sheet {
 
-    // validateParameters()
+    if(params.help) {
+        log.info paramsHelp("nextflow run -entry test_ashlar_sheet -plugins nf-validation main.nf")
+        exit 0
+    }
+
+    validateParameters()
+
     // ch_input_ss = Channel.fromSamplesheet()
 
     ch_input = file(TEST_SHEET)
