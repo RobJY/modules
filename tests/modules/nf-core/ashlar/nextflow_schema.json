@@ -26,7 +26,13 @@
                 "opt_ffp": {
                     "type": "string",
                     "format": "file-path",
-                    "errorMessage": "optional ffp file"
+                    "description": "optional ffp file"
+                },
+                "outdir": {
+                    "type": "string",
+                    "format": "file-path",
+                    "description": "output directory",
+                    "default": null
                 },
                 "help": {
                     "type": "boolean",
@@ -41,11 +47,5 @@
         {
             "$ref": "#/definitions/input_output_options"
         }
-    ],
-    "properties": {
-        "outdir": {
-            "type": "string",
-            "default": null
-        }
-    }
+    ]
 }

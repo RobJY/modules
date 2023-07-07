@@ -8,6 +8,13 @@ include { ASHLAR as ASHLAR_TILE } from '../../../../modules/nf-core/ashlar/main.
 // we zero out the UUID of output tiff images with ZERO_UUID so we get a consistent md5sum
 include { ZERO_UUID } from './zero_uuid.nf'
 
+include { validateParameters; paramsHelp; paramsSummaryLog; fromSamplesheet } from 'plugin/nf-validation'
+
+if (params.help) {
+    log.info paramsHelp("nextflow run -plugins nf-validation --help")
+    exit 0
+}
+
 workflow test_ashlar_1_file {
 
     input_list =  [ [ id:'test_all' ],
