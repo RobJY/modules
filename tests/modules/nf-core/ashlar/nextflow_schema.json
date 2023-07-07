@@ -1,0 +1,51 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/nf-core/testpipeline/master/nextflow_schema.json",
+    "title": "nf-core/testpipeline pipeline parameters",
+    "description": "Test workflow for the ASHLAR module",
+    "type": "object",
+    "definitions": {
+        "input_output_options": {
+            "title": "input/output options",
+            "type": "object",
+            "fa_icon": "fas fa-terminal",
+            "description": "Define where the pipeline should find input data and save output data.",
+            "help_text": "These options define the input and output parameters in the nextflow.config file",
+            "properties": {
+                "file": {
+                    "type": "string",
+                    "format": "file-path",
+                    "pattern": "^\\S+\\.ome.tif$",
+                    "description": "input image(s) file path.  may be a space separated list."
+                },
+                "opt_dfp": {
+                    "type": "string",
+                    "format": "file-path",
+                    "description": "optional dfp file"
+                },
+                "opt_ffp": {
+                    "type": "string",
+                    "format": "file-path",
+                    "errorMessage": "optional ffp file"
+                },
+                "help": {
+                    "type": "boolean",
+                    "description": "display help message",
+                    "fa_icon": "far fa-question-circle",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/input_output_options"
+        }
+    ],
+    "properties": {
+        "outdir": {
+            "type": "string",
+            "default": null
+        }
+    }
+}
