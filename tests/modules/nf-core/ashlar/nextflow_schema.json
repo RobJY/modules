@@ -38,6 +38,13 @@
                     "type": "boolean",
                     "description": "display help message",
                     "fa_icon": "far fa-question-circle",
+                    "default": false,
+                    "hidden": true
+                },
+                "validate_params": {
+                    "type": "boolean",
+                    "description": "use nf-validation to validate input parameters",
+                    "default": false,
                     "hidden": true
                 }
             }

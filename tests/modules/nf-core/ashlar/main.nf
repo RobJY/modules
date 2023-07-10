@@ -15,6 +15,11 @@ if (params.help) {
     exit 0
 }
 
+if (params.validate_params) {
+    validateParameters()
+    exit 0
+}
+
 workflow test_ashlar_1_file {
 
     input_list =  [ [ id:'test_all' ],
