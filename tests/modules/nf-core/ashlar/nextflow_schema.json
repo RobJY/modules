@@ -30,7 +30,7 @@
                 },
                 "outdir": {
                     "type": "string",
-                    "format": "file-path",
+                    "format": "directory-path",
                     "description": "output directory",
                     "default": null
                 },
@@ -45,6 +45,24 @@
                     "type": "boolean",
                     "description": "use nf-validation to validate input parameters",
                     "default": false,
+                    "hidden": true
+                },
+                "singularity_pull_docker_container": {
+                    "type": "string",
+                    "description": "workaround for container command",
+                    "default": null,
+                    "hidden": true
+                },
+                "test_data_base": {
+                    "type": "string",
+                    "description": "URL for database containing test data files",
+                    "default": null,
+                    "hidden": true
+                },
+                "test_data": {
+                    "type": "string",
+                    "description": "JSON string containing URLs for each individual test data file",
+                    "default": null,
                     "hidden": true
                 }
             }
