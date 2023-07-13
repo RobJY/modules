@@ -2,28 +2,29 @@
 
 nextflow.enable.dsl = 2
 
-params.enable_conda = true
-
 include { ASHLAR } from '../../../../modules/nf-core/ashlar/main.nf'
+include { ASHLAR as ASHLAR_TILE } from '../../../../modules/nf-core/ashlar/main.nf'
+
 // we zero out the UUID of output tiff images with ZERO_UUID so we get a consistent md5sum
 include { ZERO_UUID } from './zero_uuid.nf'
 include { INPUT_CHECK } from '../../../../modules/nf-core/ashlar/input_check.nf'
 include { validateParameters; paramsHelp; paramsSummaryLog; fromSamplesheet } from 'plugin/nf-validation'
 
-TEST_SHEET = "/home/pollen/github/modules/tests/modules/nf-core/ashlar/test_sheet_url.csv"
+if (params.help) {
+    log.info paramsHelp("nextflow run -plugins nf-validation --help")
+    exit 0
+}
+
+if (params.validate_params) {
+    validateParameters()
+    exit 0
+}
 
 workflow test_ashlar_sheet {
 
-    if(params.help) {
-        log.info paramsHelp("nextflow run -entry test_ashlar_sheet -plugins nf-validation main.nf")
-        exit 0
-    }
+    // ch_input = Channel.fromSamplesheet(TEST_SHEET)
 
-    validateParameters()
-
-    // ch_input_ss = Channel.fromSamplesheet()
-
-    ch_input = file(TEST_SHEET)
+    ch_input = file(params.input)
 
     INPUT_CHECK (
         ch_input
@@ -38,7 +39,7 @@ workflow test_ashlar_sheet {
     }
     .set { input_maps }
 
-    ASHLAR ( input_maps )
+    ASHLAR ( input_maps, [], [] )
 
     ZERO_UUID ( ASHLAR.out[0], "8390123" )
 
