@@ -41,6 +41,15 @@ workflow test_ashlar_sheet {
 
     ASHLAR ( input_maps, [], [] )
 
-    ZERO_UUID ( ASHLAR.out[0], "8390123" )
+    ch_offset = Channel.from("8390123", "16779883")
 
+    ASHLAR.out[0]
+        .map {
+            it ->
+                out_file = [ it[1] ]
+        }
+        .merge(ch_offset)
+        .set { ch_zero_uuid_input }
+
+    ZERO_UUID ( ch_zero_uuid_input )
 }

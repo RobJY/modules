@@ -4,13 +4,13 @@ process ZERO_UUID {
 
     input:
     val(file_in)
-    val(offset)
 
     when:
     file_in != "versions.yml"
 
     script:
-    def file_path = file_in[1]
+    def file_path = file_in[0]
+    def offset = file_in[1]
 
     """
 
