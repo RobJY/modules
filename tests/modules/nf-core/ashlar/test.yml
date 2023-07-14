@@ -6,6 +6,3 @@
     - path: output/ashlar/ashlar_output.ome.tif
       md5sum: 075582dfde23fc301ddaed3484452953
     - path: output/ashlar/versions.yml
-    - path: output/samplesheet/samplesheet.valid.csv
-      md5sum: 7fc376b7194d599d9523374240740122
-    - path: output/samplesheet/versions.yml
